@@ -1,8 +1,8 @@
-fs           = require 'fs'
-vm           = require 'vm'
-path         = require 'path'
-CoffeeScript = require 'coffee-script'
-
+fs            = require 'fs'
+vm            = require 'vm'
+path          = require 'path'
+CoffeeScript  = require 'coffee-script'
+_             = require 'underscore'
 class CloudFormationTemplateContext
   constructor: ->
     @_resources   = {}
@@ -134,9 +134,16 @@ class CloudFormationTemplateContext
 
   _resourceByType: (type, name, props) =>
     result = {}
-    if props?.Metadata? or props?.Properties? or props?.DependsOn? or props?.UpdatePolicy? or props?.CreationPolicy?
-      result[name] = props
-      result[name].Type = type
+    if props?
+      if \ 
+        props.Metadata? or 
+        props.Properties? or 
+        props.DependsOn? or 
+        props.UpdatePolicy? or 
+        props.CreationPolicy? or
+        props.DeletionPolicy?
+          result[name] = props
+          result[name].Type = type
     else
       result[name] =
         Type: type
@@ -171,6 +178,10 @@ class CloudFormationTemplateContext
     Key: key
     Value: val
 
+  ASGTag: (key, val, propagate) ->
+    _.extend @Tag(key,val), {},
+      PropagateAtLaunch: propagate?
+
   #utility functions
   Join: (delimiter, args...) ->
     if args.length is 1 and (args[0] instanceof Array)
@@ -189,7 +200,8 @@ class CloudFormationTemplateContext
     if args.length is 1 and (args[0] instanceof Array)
       'Fn::Select': [ index, args[0] ]
     else
-      'Fn::Select': [ index, args ]
+      # allow anything to be Fn::Select'd?
+      'Fn::Select': [ index, [args] ]
   AccountId: Ref: 'AWS::AccountId'
   NotificationARNs: Ref: 'AWS::NotificationARNs'
   NoValue: Ref: 'AWS::NoValue'
