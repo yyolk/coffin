@@ -220,14 +220,35 @@ class CloudFormationTemplateContext
 module.exports.CloudFormationTemplateContext = CloudFormationTemplateContext
 
 module.exports = (func) ->
-  context = new CloudFormationTemplateContext
-  func.apply context, [context]
-  template = AWSTemplateFormatVersion: '2010-09-09'
-  template.Description = context._description if context._description?
-  template.Parameters  = context._parameters
-  template.Mappings    = context._mappings    if context._mappings?
-  template.Resources   = context._resources
-  template.Outputs     = context._outputs
-  template
+  if typeof func is 'function'
+    context = new CloudFormationTemplateContext
+    func.apply context, [context]
+    template = AWSTemplateFormatVersion: '2010-09-09'
+    template.Description = context._description if context._description?
+    template.Parameters  = context._parameters
+    template.Mappings    = context._mappings    if context._mappings?
+    template.Resources   = context._resources
+    template.Outputs     = context._outputs
+    template
+  else
+    # pre = "require('.') ->\n"
+    fs.readFile func, (err, data) ->
+      if (err)
+        throw err
+      tabbedlines = []
+      (tabbedlines.push('  ' + line) for line in data.toString().split '\n')
+      # tabbedlines.push '  return'
+      code = tabbedlines.join '\n'
+      # code = pre + code
+      # compiled = CoffeeScript.compile code,
+      #   bare: true
+      # template = eval compiled
+      # templateString = JSON.stringify template, null, 2
+      # cb? templateString
+      # templateString
+      # data
+      return code
+
+
 
 require('pkginfo')(module, 'version')
