@@ -10,14 +10,18 @@ class CloudFormationTemplateContext
     @_mappings    = null
     @_outputs     = {}
     @_description = null
+    @_conditions  = null
     @Params       = {}
     @Resources    = {}
     @Mappings     = {}
+    @Conditions   = {}
     @AWS =
       AutoScaling:
         AutoScalingGroup: null
         LaunchConfiguration: null
         ScalingPolicy: null
+        LifecycleHook: null
+        ScheduledAction: null
         Trigger: null
       CloudFormation:
         Authentication: null
@@ -29,6 +33,14 @@ class CloudFormationTemplateContext
         Distribution: null
       CloudWatch:
         Alarm: null
+      CodeDeploy:
+        Application: null
+        DeploymentConfig: null
+        DeploymentGroup: null
+      CloudTrail:
+        Trail: null
+      DataPipeline:
+        Pipeline: null
       DynamoDB:
         Table: null
       EC2:
@@ -56,6 +68,10 @@ class CloudFormationTemplateContext
         VPCGatewayAttachment: null
         VPNConnection: null
         VPNGateway: null
+      ECS:
+        Cluser: null
+        Service: null
+        TaskDefinition: null
       ElastiCache:
         CacheCluster: null
         ParameterGroup: null
@@ -63,16 +79,41 @@ class CloudFormationTemplateContext
         SecurityGroupIngress: null
       ElasticBeanstalk:
         Application: null
+        ApplicationVersion: null
         Environment: null
+        ConfigurationTemplate: null
       ElasticLoadBalancing:
         LoadBalancer: null
+      EFS:
+        FileSystem: null
+        MountTarget: null
       IAM:
         AccessKey: null
         Group: null
         InstanceProfile: null
         Policy: null
+        Role: null
         User: null
         UserToGroupAddition: null
+      Kinesis:
+        Stream: null
+      Logs:
+        LogGroup: null
+        MetricFilter: null
+      Lambda:
+        Function: null
+        Permission: null
+        EventSourceMapping: null
+      OpsWorks:
+        App: null
+        Instance: null
+        Layer: null
+        Stack: null
+      Redshift:
+        Cluster: null
+        ClusterParameterGroup: null
+        ClusterSecurityGroup: null
+        ClusterSubnetGroup: null
       RDS:
         DBInstance: null
         DBParameterGroup: null
@@ -82,6 +123,8 @@ class CloudFormationTemplateContext
       Route53:
         RecordSet: null
         RecordSetGroup: null
+        HostedZone: null
+        HealthCheck: null
       SDB:
         Domain: null
       S3:
@@ -97,6 +140,8 @@ class CloudFormationTemplateContext
       String: (name, arg1, arg2) =>             @_paramByType 'String', name, arg1, arg2
       Number: (name, arg1, arg2) =>             @_paramByType 'Number', name, arg1, arg2
       CommaDelimitedList: (name, arg1, arg2) => @_paramByType 'CommaDelimitedList', name, arg1, arg2
+      AWS: (type, name, arg1, arg2) => @_paramByType "AWS::#{type}", name, arg1, arg2
+      AWSList: (type, name, arg1, arg2) => @_paramByType "List<#{type}>", name, arg1, arg2
     @_buildCall null, null, 'AWS', @AWS
 
   _paramByType: (type, name, arg1, arg2) =>
@@ -126,7 +171,7 @@ class CloudFormationTemplateContext
 
   _resourceByType: (type, name, props) =>
     result = {}
-    if props?.Metadata? or props?.Properties?
+    if props?.Metadata? or props?.Properties? or props?.DependsOn? or props?.UpdatePolicy? or props?.CreationPolicy? or props?.Condition?
       result[name] = props
       result[name].Type = type
     else
@@ -157,6 +202,12 @@ class CloudFormationTemplateContext
         Value: args[1]
     @_set result, @_outputs
 
+  Condition: (name, intrinsicfn) =>
+    @_conditions ?= {}
+    result = {}
+    result[name] = intrinsicfn
+    @_set result, @_conditions
+
   Description: (d) => @_description = d
 
   Tag: (key, val) ->
@@ -177,7 +228,32 @@ class CloudFormationTemplateContext
     'Fn::Base64': arg
   GetAZs: (arg) ->
     'Fn::GetAZs': arg
+  Select: (index, args...) ->
+    if args.length is 1 and (args[0] instanceof Array)
+      'Fn::Select': [index, args[0]]
+    else
+      'Fn::Select': [index, args]
+  And: (condition, conditions...) ->
+    if conditions.length is 1 and (conditions[0] instanceof Array)
+      'Fn::And': [condition, conditions[0]]
+    else
+      'Fn::And': [condition, conditions]
+  Equals: (value_1, value_2) ->
+    'Fn::Equals': [ value_1, value_2 ]
+  If: (condition, value_if_true, value_if_false) ->
+    'Fn::If': [condition, value_if_true, value_if_false]
+  Not: (condition) ->
+    'Fn::Not': [condition]
+  Or: (condition, conditions...) ->
+    if conditions.length is 1 and (conditions[0] instanceof Array)
+      'Fn::Or': [condition, conditions[0]]
+    else
+      'Fn::Or': [condition, conditions]
+  AccountId: Ref: 'AWS::AccountId'
+  NotificationARNs: Ref: 'AWS::NotificationARNs'
+  NoValue: Ref: 'AWS::NoValue'
   Region: Ref: 'AWS::Region'
+  StackId: Ref: 'AWS::StackId'
   StackName: Ref: 'AWS::StackName'
   InitScript: (arg) ->
     existsSyncFunc = if fs.existsSync? then fs.existsSync else path.existsSync
@@ -209,6 +285,7 @@ module.exports = (func) ->
   template.Mappings    = context._mappings    if context._mappings?
   template.Resources   = context._resources
   template.Outputs     = context._outputs
+  template.Conditions  = context._conditions  if context._conditions?
   template
 
 require('pkginfo')(module, 'version')

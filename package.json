@@ -1,22 +1,25 @@
 {
   "name":         "coffin",
-  "version":      "0.2.3",
+  "version":      "0.3.1",
   "description":  "Coffee dsl for aws cloudformation",
   "keywords":     ["coffeescript", "coffee-script", "aws", "cloudformation"],
   "author":       "Chris Jones <chris.f.jones@gmail.com> (https://github.com/chrisfjones/)",
-  "contributors": ["Addison Higham (https://github.com/addisonj)", "Aaron Bento (https://github.com/rkive)", "Ole Michaelis (https://github.com/nesQuick)"],
-  "homepage":     "http://chrisfjones.github.com/coffin",
-  "repositories": [
-       {
-            "type": "git",
-            "url": "git@github.com:chrisfjones/coffin.git"
-       }
+  "contributors": [
+    "Addison Higham (https://github.com/addisonj)",
+    "Aaron Bento (https://github.com/rkive)",
+    "Ole Michaelis (https://github.com/nesQuick)",
+    "Joseph Yølk Chiocchi (https://github.com/yyolk)"
   ],
+  "homepage":     "http://yyolk.github.com/coffin",
+  "repository": {
+      "type": "git",
+      "url": "git@github.com:yyolk/coffin.git"
+  },
   "bugs": {
-       "url": "http://github.com/chrisfjones/coffin/issues"
+       "url": "http://github.com/yyolk/coffin/issues"
   },
   "engines":      {
-    "node":       ">=0.4.0"
+    "node":       ">=0.8.0"
   },
   "directories" : {
     "lib" : "./lib"
@@ -29,7 +32,7 @@
      "test": "(cd test; coffee templateTests.coffee)"
    },
   "dependencies": {
-      "coffee-script":  "1.1.x",
+      "coffee-script":  "1.9.x",
       "commander":      "0.4.x",
       "pkginfo":        "0.2.x",
       "colors":         "0.5.x"
