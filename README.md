@@ -3,5 +3,5 @@
 ### Run coffin with Docker container
 ```
 docker build -t coffin . 
-docker run -ti --rm -v $(pwd)/examples:data coffin print demo.coffin
+docker run -ti --rm -v $(pwd)/examples:/data coffin print demo.coffin
 ```
