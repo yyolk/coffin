@@ -90,6 +90,7 @@ class CloudFormationTemplateContext
         ReplicationGroup: null
         SecurityGroup: null
         SecurityGroupIngress: null
+        SubnetGroup: null
       ElasticBeanstalk:
         Application: null
         ApplicationVersion: null
