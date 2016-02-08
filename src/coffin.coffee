@@ -45,6 +45,7 @@ class CloudFormationTemplateContext
         ConfigurationRecorder: null
         DeliveryChannel: null
       DirectoryService:
+        MicrosoftAD: null
         SimpleAD: null
       CloudTrail:
         Trail: null
@@ -115,7 +116,9 @@ class CloudFormationTemplateContext
       KMS:
         Key: null
       Logs:
+        Destination: null
         LogGroup: null
+        LogStream: null
         MetricFilter: null
         SubscriptionFilter: null
       Lambda:
@@ -160,6 +163,12 @@ class CloudFormationTemplateContext
         QueuePolicy: null
       SSM:
         Document: null
+      WAF:
+        ByteMatchSet: null
+        IPSet: null
+        Rule: null
+        SqlInjectionMatchSet: null
+        WebACL: null
       WorkSpaces:
         Workspace: null
     @Param =
