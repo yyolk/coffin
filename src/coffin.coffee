@@ -60,6 +60,7 @@ class CloudFormationTemplateContext
         EIPAssociation: null
         Instance: null
         InternetGateway: null
+        NatGateway: null
         NetworkAcl: null
         NetworkAclEntry: null
         NetworkInterface: null
@@ -81,6 +82,8 @@ class CloudFormationTemplateContext
         VPCGatewayAttachment: null
         VPNConnection: null
         VPNGateway: null
+      ECR:
+        Repository: null
       ECS:
         Cluster: null
         Service: null
@@ -99,9 +102,15 @@ class CloudFormationTemplateContext
         ConfigurationTemplate: null
       ElasticLoadBalancing:
         LoadBalancer: null
+      Elasticsearch:
+        Domain: null
       EFS:
         FileSystem: null
         MountTarget: null
+      EMR:
+        Cluster: null
+        InstanceGroupConfig: null
+        Step: null
       IAM:
         AccessKey: null
         Group: null
