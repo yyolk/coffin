@@ -11,6 +11,7 @@ class CloudFormationTemplateContext
     @_outputs     = {}
     @_description = null
     @_conditions  = null
+    @_metadatas   = null
     @Params       = {}
     @Resources    = {}
     @Mappings     = {}
@@ -254,6 +255,10 @@ class CloudFormationTemplateContext
 
   Description: (d) => @_description = d
 
+  Metadata: (o) =>
+    @_metadatas ?= {}
+    @_set o, @_metadatas
+
   Tag: (key, val) ->
     Key: key
     Value: val
@@ -330,6 +335,7 @@ module.exports = (func) ->
   template.Resources   = context._resources
   template.Outputs     = context._outputs
   template.Conditions  = context._conditions  if context._conditions?
+  template.Metadata    = context._metadatas   if context._metadatas?
   template
 
 require('pkginfo')(module, 'version')
