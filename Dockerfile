@@ -1,10 +1,10 @@
 FROM alpine:3.2
 
 RUN apk update && apk add nodejs && rm -rf /var/cache/apk/* && mkdir /data
-RUN npm install -g yyolk/coffin
+RUN npm install -g coffyn
 
 VOLUME /data
 WORKDIR /data
 
-ENTRYPOINT ["coffin"]
+ENTRYPOINT ["coffyn"]
 CMD ["-h"]

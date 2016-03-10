@@ -7,5 +7,21 @@
 ### Run coffin with Docker container
 ```
 docker build -t coffin . 
-docker run -ti --rm -v $(pwd)/examples:/data coffin print demo.coffin
+docker run -ti --rm -v $(pwd)/examples:/data print demo.coffin
 ```
+
+
+## Commands
+
+
+### `coffyn dig <new_stack>`
+Initiate a project at folder
+
+### `coffyn nail <resource_type>`
+Add a resource to the project
+
+### `coffyn bury`
+Launch the stack
+
+
+## Project Structure
