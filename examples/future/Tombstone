@@ -1,0 +1,46 @@
+---
+_i describe the stack_
+
+_i allow for parameters, every coffin should just require parameters
+---
+
+```
+Here lies <Some_Stack_name>
+<Some description>
+```
+- first line "Here Lies" is optional
+- second line is description
+
+# this could be a prompt, with ascii/ansi art
+```
+Here lies <Some_Stack_name>
+<Some description>
+    <one line>
+
+known for <some_param> being <some_arg> 
+[mappings]
+```
+
+#simpler
+```yaml
+- <some_stack_name>
+- <some_description>
+- params:
+  - <some_param:some_var>
+  - <some_param:some_var>
+  - <some_list_param>
+    - <some_var>
+    - <some_var>
+- maps:
+  - <some_mapping_file>
+  - ...
+- conditions:
+  - <some_conditions_file>
+  - ...
+- metadata
+  - <metadata>
+  - ...
+- stacks:
+  - <
+```
+
