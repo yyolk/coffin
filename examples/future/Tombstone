@@ -44,3 +44,11 @@ known for <some_param> being <some_arg>
   - <
 ```
 
+
+```json
+{
+  "Name": "<some_stack_name>",
+  "description": "<some_description>"
+}
+
+
