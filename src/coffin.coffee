@@ -112,6 +112,10 @@ class CloudFormationTemplateContext
         Cluster: null
         InstanceGroupConfig: null
         Step: null
+      GameLift:
+        Alias: null
+        Build: null
+        Fleet: null
       IAM:
         AccessKey: null
         Group: null
