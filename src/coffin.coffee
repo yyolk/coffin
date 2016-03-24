@@ -286,22 +286,16 @@ class CloudFormationTemplateContext
       'Fn::Select': [index, args[0]]
     else
       'Fn::Select': [index, args]
-  And: (condition, conditions...) ->
-    if conditions.length is 1 and (conditions[0] instanceof Array)
-      'Fn::And': [condition, conditions[0]]
-    else
-      'Fn::And': [condition, conditions]
+  And: (conditions...) ->
+    'Fn::And': conditions
   Equals: (value_1, value_2) ->
     'Fn::Equals': [ value_1, value_2 ]
   If: (condition, value_if_true, value_if_false) ->
     'Fn::If': [condition, value_if_true, value_if_false]
   Not: (condition) ->
     'Fn::Not': [condition]
-  Or: (condition, conditions...) ->
-    if conditions.length is 1 and (conditions[0] instanceof Array)
-      'Fn::Or': [condition, conditions[0]]
-    else
-      'Fn::Or': [condition, conditions]
+  Or: (conditions...) ->
+    'Fn::Or': conditions
   AccountId: Ref: 'AWS::AccountId'
   NotificationARNs: Ref: 'AWS::NotificationARNs'
   NoValue: Ref: 'AWS::NoValue'
