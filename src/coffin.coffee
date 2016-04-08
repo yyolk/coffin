@@ -136,9 +136,11 @@ class CloudFormationTemplateContext
         MetricFilter: null
         SubscriptionFilter: null
       Lambda:
+        Alias: null
         EventSourceMapping: null
         Function: null
         Permission: null
+        Version: null
       OpsWorks:
         App: null
         Instance: null
