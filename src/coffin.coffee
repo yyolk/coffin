@@ -251,6 +251,11 @@ class CloudFormationTemplateContext
       result[name] =
         Description: args[0]
         Value: args[1]
+    if args.length is 3
+      result[name] = 
+        Description: args[0]
+        Value: args[1]
+        Condition: args[2]
     @_set result, @_outputs
 
   Condition: (name, intrinsicfn) =>
