@@ -1,6 +1,6 @@
 {
   "name": "coffyn",
-  "version": "0.4.4",
+  "version": "0.4.6",
   "description": "Coffee dsl for aws cloudformation",
   "keywords": [
     "coffeescript",
@@ -41,7 +41,7 @@
     "coffee-script": "1.10.x",
     "colors": "0.5.x",
     "commander": "0.4.x",
-    "git-rev": "^0.2.1",
+    "git-rev-sync": "1.6.0",
     "pkginfo": "0.2.x"
   },
   "devDependencies": {

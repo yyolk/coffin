@@ -1,7 +1,8 @@
-fs           = require 'fs'
-vm           = require 'vm'
-path         = require 'path'
-CoffeeScript = require 'coffee-script'
+fs            = require 'fs'
+vm            = require 'vm'
+path          = require 'path'
+CoffeeScript  = require 'coffee-script'
+git           = require 'git-rev-sync'
 
 class CloudFormationTemplateContext
   constructor: ->
@@ -12,6 +13,7 @@ class CloudFormationTemplateContext
     @_description = null
     @_conditions  = null
     @_metadatas   = null
+    @_git_rev     = git.long()
     @Params       = {}
     @Resources    = {}
     @Mappings     = {}
@@ -328,6 +330,7 @@ class CloudFormationTemplateContext
     chunks.push text if text and text.length > 0
     @Base64 @Join '', chunks
 
+
 module.exports.CloudFormationTemplateContext = CloudFormationTemplateContext
 
 module.exports = (func) ->
@@ -340,7 +343,11 @@ module.exports = (func) ->
   template.Resources   = context._resources
   template.Outputs     = context._outputs
   template.Conditions  = context._conditions  if context._conditions?
+  template.Metadata = {}
   template.Metadata    = context._metadatas   if context._metadatas?
+  console.log context._git_rev
+  # template.Metadata._git_rev = {}
+  template.Metadata._git_rev = context._git_rev
   template
 
 require('pkginfo')(module, 'version')
