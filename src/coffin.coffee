@@ -13,7 +13,7 @@ class CloudFormationTemplateContext
     @_description = null
     @_conditions  = null
     @_metadatas   = null
-    @_git_rev     = git.long()
+    @_git_rev     = {}
     @Params       = {}
     @Resources    = {}
     @Mappings     = {}
@@ -347,7 +347,7 @@ module.exports = (func) ->
   template.Metadata    = context._metadatas   if context._metadatas?
   console.log context._git_rev
   # template.Metadata._git_rev = {}
-  template.Metadata._git_rev = context._git_rev
+  template.Metadata._git_rev = git.long()
   template
 
 require('pkginfo')(module, 'version')
