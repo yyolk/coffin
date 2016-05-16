@@ -1,42 +1,48 @@
 {
-  "name":         "coffyn",
-  "version":      "0.4.4",
-  "description":  "Coffee dsl for aws cloudformation",
-  "keywords":     ["coffeescript", "coffee-script", "aws", "cloudformation"],
-  "author":       "Joseph Yølk Chiocchi <joe@yolk.cc> (https://github.com/yyolk)",
+  "name": "coffyn",
+  "version": "0.4.4",
+  "description": "Coffee dsl for aws cloudformation",
+  "keywords": [
+    "coffeescript",
+    "coffee-script",
+    "aws",
+    "cloudformation"
+  ],
+  "author": "Joseph Yølk Chiocchi <joe@yolk.cc> (https://github.com/yyolk)",
   "contributors": [
     "Chris Jones <chris.f.jones@gmail.com> (https://github.com/chrisfjones/)",
     "Addison Higham (https://github.com/addisonj)",
     "Aaron Bento (https://github.com/rkive)",
     "Ole Michaelis (https://github.com/nesQuick)"
   ],
-  "homepage":     "http://yyolk.github.com/coffyn",
+  "homepage": "http://yyolk.github.com/coffyn",
   "repository": {
-      "type": "git",
-      "url": "git@github.com:yyolk/coffyn.git"
+    "type": "git",
+    "url": "git@github.com:yyolk/coffyn.git"
   },
   "bugs": {
-       "url": "http://github.com/yyolk/coffyn/issues"
+    "url": "http://github.com/yyolk/coffyn/issues"
   },
-  "engines":      {
-    "node":       ">=0.8.0"
+  "engines": {
+    "node": ">=0.8.0"
   },
-  "directories" : {
-    "lib" : "./lib"
+  "directories": {
+    "lib": "./lib"
   },
-  "main" : "./lib/coffin",
-  "bin":          {
+  "main": "./lib/coffin",
+  "bin": {
     "coffin": "./bin/coffin",
     "coffyn": "./bin/coffin"
   },
   "scripts": {
-     "test": "(cd test; coffee templateTests.coffee)"
-   },
+    "test": "(cd test; coffee templateTests.coffee)"
+  },
   "dependencies": {
-      "coffee-script":  "1.10.x",
-      "commander":      "0.4.x",
-      "pkginfo":        "0.2.x",
-      "colors":         "0.5.x"
+    "coffee-script": "1.10.x",
+    "colors": "0.5.x",
+    "commander": "0.4.x",
+    "git-rev": "^0.2.1",
+    "pkginfo": "0.2.x"
   },
   "devDependencies": {
     "vows": "0.5.x"
