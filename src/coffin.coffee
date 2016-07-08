@@ -73,6 +73,7 @@ class CloudFormationTemplateContext
         DHCPOptions: null
         EIP: null
         EIPAssociation: null
+        Host: null
         Instance: null
         InternetGateway: null
         NatGateway: null
