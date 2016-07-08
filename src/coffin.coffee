@@ -73,6 +73,7 @@ class CloudFormationTemplateContext
         DHCPOptions: null
         EIP: null
         EIPAssociation: null
+        FlowLog: null
         Host: null
         Instance: null
         InternetGateway: null
@@ -144,6 +145,8 @@ class CloudFormationTemplateContext
         UserToGroupAddition: null
       Kinesis:
         Stream: null
+      KinesisFirehose:
+        DeliveryStream: null
       KMS:
         Key: null
       Logs:
