@@ -19,6 +19,18 @@ class CloudFormationTemplateContext
     @Mappings     = {}
     @Conditions   = {}
     @AWS =
+      ApiGateway:
+        Account: null
+        ApiKey: null
+        Authorizer: null
+        BasePathMapping: null
+        ClientCertificate: null
+        Deployment: null
+        Method: null
+        Model: null
+        Resource: null
+        RestApi: null
+        Stage: null
       AutoScaling:
         AutoScalingGroup: null
         LaunchConfiguration: null
@@ -114,6 +126,8 @@ class CloudFormationTemplateContext
         Cluster: null
         InstanceGroupConfig: null
         Step: null
+      Events:
+        Rule: null
       GameLift:
         Alias: null
         Build: null
@@ -185,8 +199,10 @@ class CloudFormationTemplateContext
         ByteMatchSet: null
         IPSet: null
         Rule: null
+        SizeConstraintSet: null
         SqlInjectionMatchSet: null
         WebACL: null
+        XssMatchSet: null
       WorkSpaces:
         Workspace: null
     @Param =
