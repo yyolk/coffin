@@ -365,7 +365,6 @@ module.exports = (func) ->
   template.Conditions  = context._conditions  if context._conditions?
   template.Metadata = {}
   template.Metadata    = context._metadatas   if context._metadatas?
-  console.log context._git_rev
   # template.Metadata._git_rev = {}
   template.Metadata._git_rev = git.long()
   template
