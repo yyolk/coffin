@@ -2,7 +2,6 @@ fs            = require 'fs'
 vm            = require 'vm'
 path          = require 'path'
 CoffeeScript  = require 'coffee-script'
-git           = require 'git-rev-sync'
 
 class CloudFormationTemplateContext
   constructor: ->
@@ -363,10 +362,7 @@ module.exports = (func) ->
   template.Resources   = context._resources
   template.Outputs     = context._outputs
   template.Conditions  = context._conditions  if context._conditions?
-  template.Metadata = {}
   template.Metadata    = context._metadatas   if context._metadatas?
-  # template.Metadata._git_rev = {}
-  template.Metadata._git_rev = git.long()
   template
 
 require('pkginfo')(module, 'version')
