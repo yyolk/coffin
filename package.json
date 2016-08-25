@@ -1,6 +1,6 @@
 {
   "name": "coffyn",
-  "version": "0.4.10",
+  "version": "0.5.0",
   "description": "Coffee dsl for aws cloudformation",
   "keywords": [
     "coffeescript",
