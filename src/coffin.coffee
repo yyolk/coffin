@@ -265,6 +265,9 @@ class CloudFormationTemplateContext
 
   Output: (name, args...) =>
     result = {}
+    if args.length is 1 and (args[1] instanceof Object)
+      map = args[1]
+      result[name] = map
     if args.length is 1
       result[name] =
         Value: args[0]
@@ -309,11 +312,20 @@ class CloudFormationTemplateContext
     'Fn::Base64': arg
   GetAZs: (arg) ->
     'Fn::GetAZs': arg
+  ImportValue: (arg) ->
+    'Fn::ImportValue': arg
   Select: (index, args...) ->
     if args.length is 1 and (args[0] instanceof Array)
       'Fn::Select': [index, args[0]]
     else
       'Fn::Select': [index, args]
+  Sub: (args...) ->
+    if args.length is 2 and (args[1] instanceof Object)
+      subString = args[0]
+      vars = args[1]
+      'Fn::Sub': [subString, vars]
+    else
+      'Fn::Sub': args[0]
   And: (conditions...) ->
     'Fn::And': conditions
   Equals: (value_1, value_2) ->
